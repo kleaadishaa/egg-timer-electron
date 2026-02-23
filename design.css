@@ -1,0 +1,262 @@
+/* RESET */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f2f2f2;  
+  font-family: 'Trebuchet MS', Arial, sans-serif;
+}
+
+/* PHONE FRAME */
+#outer {
+  width: 420px;
+  height: 860px;
+  max-width: 100vw;
+  max-height: 100vh;
+
+  border: 12px solid #d8c271;
+  border-bottom-width: 18px;
+  border-top-width: 8px;
+
+  border-radius: 30px;
+  background: #000;
+
+  display: flex;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+}
+
+/* Remove frame on real phones */
+@media (max-width: 480px) {
+  #outer {
+    width: 100vw;
+    height: 100vh;
+    border: 0;
+    border-radius: 0;
+  }
+
+  #titlebar {
+    display: none;
+  }
+}
+
+/* APP BACKGROUND LAYER */
+#window-frame {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Background image without opacity wash */
+#window-frame::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url("assets/background.png") center/cover no-repeat;
+  opacity: 0.75;
+  z-index: 0;
+}
+
+/* Content above background */
+#window-frame > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* TITLEBAR */
+#titlebar {
+  height: 48px;
+  background: #d1b551;  
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 0 12px;
+  font-weight: bold;
+  font-size: 18px;
+
+  -webkit-app-region: drag;
+}
+
+/* WINDOW BUTTONS */
+.window-controls {
+  display: flex;
+  gap: 6px;
+}
+
+.window-controls button {
+  background: none;
+  border: none;
+  color: white;
+
+  width: 32px;
+  height: 32px;
+
+  cursor: pointer;
+  -webkit-app-region: no-drag;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.window-controls button img {
+  width: 14px;
+  height: 14px;
+  filter: brightness(0) invert(1);
+}
+
+.window-controls button:hover {
+  background: rgba(255,255,255,0.2);
+  border-radius: 6px;
+}
+
+#close-btn:hover {
+  background: #e81123;
+}
+
+/* MAIN CONTENT */
+#content {
+  flex: 1;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  padding: 24px;
+  text-align: center;
+}
+
+/* TITLE */
+#content h1 {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 28px;
+  line-height: 1.6;
+  color: #3a3319;
+  animation: zoomInOut 3s infinite alternate ease-in-out;
+}
+
+@keyframes zoomInOut {
+  0% { transform: scale(0.9); }
+  100% { transform: scale(1.05); }
+}
+
+/* MENU BUTTONS */
+#content button {
+  width: 80%;
+  max-width: 260px;
+
+  padding: 16px;
+  margin: 12px 0;
+
+  border: 4px solid rgb(80, 64, 24);
+  border-radius: 22px;
+
+  font-size: 14px;
+  font-family: 'Press Start 2P', monospace;
+
+  color: white;
+  background-color: #cc8848;
+
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+#content button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px #ffe28a;
+}
+
+/* SUB MENUS */
+#menu-header {
+  font-family: 'Press Start 2P', monospace;
+  color: #231f10;
+  font-size: 22px;
+  padding: 12px;
+  line-height: 1.4;
+  text-align: center;
+}
+
+#egg-opt {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  align-items: center;
+}
+
+.btn {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 13px;
+
+  padding: 14px 18px;
+  width: 80%;
+  max-width: 260px;
+
+  border: 4px solid rgb(93, 52, 14);
+  border-radius: 16px;
+
+  background-color: #cc8848;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px #211c0c;
+}
+
+/* TIMER */
+.timerPos {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  margin-top: 40px;
+  font-size: 32px;
+  font-weight: bold;
+}
+
+#countdown {
+  font-family: 'Press Start 2P', monospace;
+  color: #231f10;
+  letter-spacing: 4px;
+
+  animation: pulse 1.5s infinite ease-in-out;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); opacity: 0.9; }
+  50% { transform: scale(1.08); opacity: 1; }
+  100% { transform: scale(1); opacity: 0.9; }
+}
+
+.countdown-gif {
+  display: none;
+  width: 140px;
+  max-width: 60%;
+}
+
+.done {
+  font-family: 'Press Start 2P', monospace;
+  color: #193711;
+  text-shadow:
+    -2px -2px 0 #000,
+     2px -2px 0 #000,
+    -2px  2px 0 #000,
+     2px  2px 0 #000;
+}
